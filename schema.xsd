@@ -1,0 +1,142 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SIL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Enums">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Enum" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="str" use="optional"/>
+                      <xs:attribute type="xs:string" name="num" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Conf">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="General">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Var">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="id"/>
+                            <xs:attribute type="xs:string" name="val"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Model" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Period">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:byte" name="ms" use="optional"/>
+                            <xs:attribute type="xs:byte" name="us" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Var" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="id" use="optional"/>
+                            <xs:attribute type="xs:string" name="val" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="id" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Simu">
+          <xs:annotation>
+            <xs:documentation>===== Init =====</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Time" maxOccurs="unbounded" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Ne peut pas avoir RQST_RSP_GS &amp;&amp; RQST_RSP_FNR simultanement</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Events">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="CAN_Rqst" minOccurs="0">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:byte" name="ev_id" use="optional"/>
+                                  <xs:attribute type="xs:string" name="type" use="optional"/>
+                                  <xs:attribute type="xs:string" name="order" use="optional"/>
+                                  <xs:attribute type="xs:byte" name="occurence" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:string" name="CAN_Rqst_Ana" minOccurs="0"/>
+                          <xs:element name="Var" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>1439</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="var_id" use="optional"/>
+                                  <xs:attribute type="xs:short" name="value" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="s" use="optional"/>
+                  <xs:attribute type="xs:string" name="abs" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Simu_Terminate">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:byte" name="m"/>
+                      <xs:attribute type="xs:byte" name="s"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:byte" name="us"/>
+            <xs:attribute type="xs:byte" name="ms"/>
+            <xs:attribute type="xs:byte" name="s"/>
+            <xs:attribute type="xs:byte" name="m"/>
+            <xs:attribute type="xs:byte" name="h"/>
+            <xs:attribute type="xs:byte" name="d"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:byte" name="version"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
